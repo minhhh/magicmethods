@@ -12,8 +12,8 @@ A PDF version of this guide can be obtained from [my site](http://www.rafekettle
 ### Table of Contents
 
 1. [Introduction](#user-content-introduction)
-1. [Construction and Initialization](#user-content-construction-initialization)
-1. [Making Operators Work on Custom Classes](#user-content-operators)
+1. [Construction and Initialization](#user-content-construction-and-initialization)
+1. [Making Operators Work on Custom Classes](#user-content-making-operators-work-on-custom-classes)
     * [Comparison magic methods](#user-content)
     * [Numeric magic methods](#user-content)
 1. [Representing your Classes](#user-content)
@@ -31,7 +31,7 @@ A PDF version of this guide can be obtained from [my site](http://www.rafekettle
 1. [Appendix 2: Changes in Python 3](#user-content)
 
 
-## <a id="introduction"></a>Introduction
+## <a></a>Introduction
 
 This guide is the culmination of a few months' worth of blog posts. The subject is magic methods.
 
@@ -41,7 +41,7 @@ So, to fix what I perceived as a flaw in Python's documentation, I set out to pr
 
 I hope you enjoy it. Use it as a tutorial, a refresher, or a reference; it's just intended to be a user-friendly guide to Python's magic methods.
 
-## <a id="construction-initialization"></a>Construction and Initialization
+## <a></a>Construction and Initialization
 
 Everyone knows the most basic magic method, `__init__`. It's the way that we can define the initialization behavior of an object. However, when I call `x = SomeClass()`, `__init__` is not the first thing to get called. Actually, it's a method called `__new__`, which actually creates the instance, then passes any arguments at creation on to the initializer. At the other end of the object's lifespan, there's `__del__.` Let's take a closer look at these 3 magic methods:
 
@@ -69,7 +69,7 @@ Putting it all together, here's an example of `__init__` and `__del__` in action
 ```
 <br/>
 
-## <a id="operators"></a>Making Operators Work on Custom Classes
+## <a></a>Making Operators Work on Custom Classes
 
 One of the biggest advantages of using Python's magic methods is that they provide a simple way to make objects behave like built-in types. That means you can avoid ugly, counter-intuitive, and nonstandard ways of performing basic operators. In some languages, it's common to do something like this:
 
