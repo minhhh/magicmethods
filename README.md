@@ -1,7 +1,7 @@
 # A Guide to Python's Magic Methods
 A Markdown version of the original.
 
-## Rafe Kettler
+**Rafe Kettler**
 
 Copyright © 2012 Rafe Kettler
 
