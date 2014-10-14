@@ -12,8 +12,8 @@ A PDF version of this guide can be obtained from [my site](http://www.rafekettle
 ### Table of Contents
 
 1. [Introduction](#user-content-introduction)
-1. [Construction and Initialization](#user-content)
-1. [Making Operators Work on Custom Classes](#user-content)
+1. [Construction and Initialization](#user-content-construction-initialization)
+1. [Making Operators Work on Custom Classes](#user-content-operators)
     * [Comparison magic methods](#user-content)
     * [Numeric magic methods](#user-content)
 1. [Representing your Classes](#user-content)
@@ -69,61 +69,66 @@ Putting it all together, here's an example of `__init__` and `__del__` in action
 ```
 <br/>
 
-## <a id="operator"></a>Making Operators Work on Custom Classes
-
+## <a id="operators"></a>Making Operators Work on Custom Classes
 
 One of the biggest advantages of using Python's magic methods is that they provide a simple way to make objects behave like built-in types. That means you can avoid ugly, counter-intuitive, and nonstandard ways of performing basic operators. In some languages, it's common to do something like this:
 
-if instance.equals(other_instance):
-    # do something
-You could certainly do this in Python, too, but this adds confusion and is unnecessarily verbose. Different libraries might use different names for the same operations, making the client do way more work than necessary. With the power of magic methods, however, we can define one method (__eq__, in this case), and say what we mean instead:
+```python
+    if instance.equals(other_instance):
+        # do something
+```
+<br/>
 
-if instance == other_instance:
-    #do something
+You could certainly do this in Python, too, but this adds confusion and is unnecessarily verbose. Different libraries might use different names for the same operations, making the client do way more work than necessary. With the power of magic methods, however, we can define one method (`__eq__`, in this case), and say what we mean instead:
+
+```python
+    if instance == other_instance:
+        #do something
+```
+<br/>
+
 That's part of the power of magic methods. The vast majority of them allow us to define meaning for operators so that we can use them on our own classes just like they were built in types.
 
-Comparison magic methods
+## <a id="comparison"></a>Comparison magic methods
 
 Python has a whole slew of magic methods designed to implement intuitive comparisons between objects using operators, not awkward method calls. They also provide a way to override the default Python behavior for comparisons of objects (by reference). Here's the list of those methods and what they do:
 
-__cmp__(self, other)
-__cmp__ is the most basic of the comparison magic methods. It actually implements behavior for all of the comparison operators (<, ==, !=, etc.), but it might not do it the way you want (for example, if whether one instance was equal to another were determined by one criterion and and whether an instance is greater than another were determined by something else). __cmp__ should return a negative integer if self < other, zero if self == other, and positive if self > other. It's usually best to define each comparison you need rather than define them all at once, but __cmp__ can be a good way to save repetition and improve clarity when you need all comparisons implemented with similar criteria.
-__eq__(self, other)
-Defines behavior for the equality operator, ==.
-__ne__(self, other)
-Defines behavior for the inequality operator, !=.
-__lt__(self, other)
-Defines behavior for the less-than operator, <.
-__gt__(self, other)
-Defines behavior for the greater-than operator, >.
-__le__(self, other)
-Defines behavior for the less-than-or-equal-to operator, <=.
-__ge__(self, other)
-Defines behavior for the greater-than-or-equal-to operator, >=.
+* `__cmp__(self, other)` - `__cmp__` is the most basic of the comparison magic methods. It actually implements behavior for all of the comparison operators (<, ==, !=, etc.), but it might not do it the way you want (for example, if whether one instance was equal to another were determined by one criterion and and whether an instance is greater than another were determined by something else). `__cmp__` should return a negative integer if `self < other`, zero if `self == other`, and positive if `self > other`. It's usually best to define each comparison you need rather than define them all at once, but `__cmp__` can be a good way to save repetition and improve clarity when you need all comparisons implemented with similar criteria.
+* `__eq__(self, other)` -  Defines behavior for the equality operator, `==`.
+* `__ne__(self, other)` - Defines behavior for the inequality operator, `!=`.
+* `__lt__(self, other)` - Defines behavior for the less-than operator, `<`.
+* `__gt__(self, other)` - Defines behavior for the greater-than operator, `>`.
+* `__le__(self, other)` - Defines behavior for the less-than-or-equal-to operator, `<=`.
+* `__ge__(self, other)` - Defines behavior for the greater-than-or-equal-to operator, `>=`.
+
 For an example, consider a class to model a word. We might want to compare words lexicographically (by the alphabet), which is the default comparison behavior for strings, but we also might want to do it based on some other criterion, like length or number of syllables. In this example, we'll compare by length. Here's an implementation:
 
-class Word(str):
-    '''Class for words, defining comparison based on word length.'''
+```python
+    class Word(str):
+        '''Class for words, defining comparison based on word length.'''
 
-    def __new__(cls, word):
-        # Note that we have to use __new__. This is because str is an immutable
-        # type, so we have to initialize it early (at creation)
-        if ' ' in word:
-            print "Value contains spaces. Truncating to first space."
-            word = word[:word.index(' ')] # Word is now all chars before first space
-        return str.__new__(cls, word)
+        def __new__(cls, word):
+            # Note that we have to use __new__. This is because str is an immutable
+            # type, so we have to initialize it early (at creation)
+            if ' ' in word:
+                print "Value contains spaces. Truncating to first space."
+                word = word[:word.index(' ')] # Word is now all chars before first space
+            return str.__new__(cls, word)
 
-    def __gt__(self, other):
-        return len(self) > len(other)
-    def __lt__(self, other):
-        return len(self) < len(other)
-    def __ge__(self, other):
-        return len(self) >= len(other)
-    def __le__(self, other):
-        return len(self) <= len(other)
-Now, we can create two Words (by using Word('foo') and Word('bar')) and compare them based on length. Note, however, that we didn't define __eq__ and __ne__. This is because this would lead to some weird behavior (notably that Word('foo') == Word('bar') would evaluate to true). It wouldn't make sense to test for equality based on length, so we fall back on str's implementation of equality.
+        def __gt__(self, other):
+            return len(self) > len(other)
+        def __lt__(self, other):
+            return len(self) < len(other)
+        def __ge__(self, other):
+            return len(self) >= len(other)
+        def __le__(self, other):
+            return len(self) <= len(other)
+```
+<br/>
 
-Now would be a good time to note that you don't have to define every comparison magic method to get rich comparisons. The standard library has kindly provided us with a class decorator in the module functools that will define all rich comparison methods if you only define __eq__ and one other (e.g. __gt__, __lt__, etc.) This feature is only available in Python 2.7, but when you get a chance it saves a great deal of time and effort. You can use it by placing @total_ordering above your class definition.
+Now, we can create two `Words` (by using `Word('foo')` and `Word('bar')`) and compare them based on length. Note, however, that we didn't define `__eq__` and `__ne__.` This is because this would lead to some weird behavior (notably that `Word('foo') == Word('bar')` would evaluate to true). It wouldn't make sense to test for equality based on length, so we fall back on str's implementation of equality.
+
+Now would be a good time to note that you don't have to define every comparison magic method to get rich comparisons. The standard library has kindly provided us with a class decorator in the module `functools` that will define all rich comparison methods if you only define `__eq__` and one other (e.g. `__gt__`, `__lt__`, etc.) This feature is only available in Python 2.7, but when you get a chance it saves a great deal of time and effort. You can use it by placing `@total_ordering` above your class definition.
 
 Numeric magic methods
 
