@@ -7,7 +7,7 @@ Copyright © 2012 Rafe Kettler
 
 Version 1.17
 
-A PDF version of this guide can be obtained from [my site] or [Github.] The magic methods guide has a git repository at [http://www.github.com/RafeKettler/magicmethods](http://www.github.com/RafeKettler/magicmethods). Any issues can be reported there, along with comments, (or even contributions!).
+A PDF version of this guide can be obtained from [my site](http://www.rafekettler.com/magicmethods.pdf) or [Github](https://github.com/RafeKettler/magicmethods/raw/master/magicmethods.pdf). The magic methods guide has a git repository at [http://www.github.com/RafeKettler/magicmethods](http://www.github.com/RafeKettler/magicmethods). Any issues can be reported there, along with comments, (or even contributions!).
 
 ### Table of Contents
 
@@ -31,7 +31,7 @@ A PDF version of this guide can be obtained from [my site] or [Github.] The magi
 1. [Appendix 2: Changes in Python 3](#user-content)
 
 
-## Introduction
+## <a id="introduction"></a>Introduction
 
 This guide is the culmination of a few months' worth of blog posts. The subject is magic methods.
 
@@ -41,12 +41,12 @@ So, to fix what I perceived as a flaw in Python's documentation, I set out to pr
 
 I hope you enjoy it. Use it as a tutorial, a refresher, or a reference; it's just intended to be a user-friendly guide to Python's magic methods.
 
-Construction and Initialization
+## <a id="construction-initialization"></a>Construction and Initialization
 
-Everyone knows the most basic magic method, __init__. It's the way that we can define the initialization behavior of an object. However, when I call x = SomeClass(), __init__ is not the first thing to get called. Actually, it's a method called __new__, which actually creates the instance, then passes any arguments at creation on to the initializer. At the other end of the object's lifespan, there's __del__. Let's take a closer look at these 3 magic methods:
+Everyone knows the most basic magic method, `__init__`. It's the way that we can define the initialization behavior of an object. However, when I call `x = SomeClass()`, `__init__` is not the first thing to get called. Actually, it's a method called `__new__`, which actually creates the instance, then passes any arguments at creation on to the initializer. At the other end of the object's lifespan, there's `__del__.` Let's take a closer look at these 3 magic methods:
 
-__new__(cls, [...)
-__new__ is the first method to get called in an object's instantiation. It takes the class, then any other arguments that it will pass along to __init__. __new__ is used fairly rarely, but it does have its purposes, particularly when subclassing an immutable type like a tuple or a string. I don't want to go in to too much detail on __new__ because it's not too useful, but it is covered in great detail in the Python docs.
+* `__new__(cls, [...)` - `__new__` is the first method to get called in an object's instantiation. It takes the class, then any other arguments that it will pass along to __init__. __new__ is used fairly rarely, but it does have its purposes, particularly when subclassing an immutable type like a tuple or a string. I don't want to go in to too much detail on __new__ because it's not too useful, but it is covered in great detail in the Python docs.
+
 __init__(self, [...)
 The initializer for the class. It gets passed whatever the primary constructor was called with (so, for example, if we called x = SomeClass(10, 'foo'), __init__ would get passed 10 and 'foo' as arguments. __init__ is almost universally used in Python class definitions.
 __del__(self)
