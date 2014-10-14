@@ -16,25 +16,25 @@ Content Cell  | Content Cell
 
 ### Table of Contents
 
-Introduction
-Construction and Initialization
-Making Operators Work on Custom Classes
-Comparison magic methods
-Numeric magic methods
-Representing your Classes
-Controlling Attribute Access
-Making Custom Sequences
-Reflection
-Abstract Base Classes
-Callable Objects
-Context Managers
-Building Descriptor Objects
-Copying
-Pickling your Objects
-Conclusion
-Appendix 1: How to Call Magic Methods
-Appendix 2: Changes in Python 3
-Introduction
+1. Introduction
+1. Construction and Initialization
+1. Making Operators Work on Custom Classes
+1. Comparison magic methods
+1. Numeric magic methods
+1. Representing your Classes
+1. Controlling Attribute Access
+1. Making Custom Sequences
+1. Reflection
+1. Abstract Base Classes
+1. Callable Objects
+1. Context Managers
+1. Building Descriptor Objects
+1. Copying
+1. Pickling your Objects
+1. Conclusion
+1. Appendix 1: How to Call Magic Methods
+1. Appendix 2: Changes in Python 3
+1. Introduction
 
 This guide is the culmination of a few months' worth of blog posts. The subject is magic methods.
 
