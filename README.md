@@ -7,38 +7,35 @@ Copyright © 2012 Rafe Kettler
 
 Version 1.17
 
-A PDF version of this guide can be obtained from my site or Github. The magic methods guide has a git repository at http://www.github.com/RafeKettler/magicmethods. Any issues can be reported there, along with comments, (or even contributions!).
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
+A PDF version of this guide can be obtained from [my site] or [Github.] The magic methods guide has a git repository at [http://www.github.com/RafeKettler/magicmethods](http://www.github.com/RafeKettler/magicmethods). Any issues can be reported there, along with comments, (or even contributions!).
 
 ### Table of Contents
 
-1. Introduction
-1. Construction and Initialization
-1. Making Operators Work on Custom Classes
-1. Comparison magic methods
-1. Numeric magic methods
-1. Representing your Classes
-1. Controlling Attribute Access
-1. Making Custom Sequences
-1. Reflection
-1. Abstract Base Classes
-1. Callable Objects
-1. Context Managers
-1. Building Descriptor Objects
-1. Copying
-1. Pickling your Objects
-1. Conclusion
-1. Appendix 1: How to Call Magic Methods
-1. Appendix 2: Changes in Python 3
-1. Introduction
+1. [Introduction](#user-content-introduction)
+1. [Construction and Initialization](#user-content)
+1. [Making Operators Work on Custom Classes](#user-content)
+    * [Comparison magic methods](#user-content)
+    * [Numeric magic methods](#user-content)
+1. [Representing your Classes](#user-content)
+1. [Controlling Attribute Access](#user-content)
+1. [Making Custom Sequences](#user-content)
+1. [Reflection](#user-content)
+1. [Abstract Base Classes](#user-content)
+1. [Callable Objects](#user-content)
+1. [Context Managers](#user-content)
+1. [Building Descriptor Objects](#user-content)
+1. [Copying](#user-content)
+1. [Pickling your Objects](#user-content)
+1. [Conclusion](#user-content)
+1. [Appendix 1: How to Call Magic Methods](#user-content)
+1. [Appendix 2: Changes in Python 3](#user-content)
+
+
+## Introduction
 
 This guide is the culmination of a few months' worth of blog posts. The subject is magic methods.
 
-What are magic methods? They're everything in object-oriented Python. They're special methods that you can define to add "magic" to your classes. They're always surrounded by double underscores (e.g. __init__ or __lt__). They're also not as well documented as they need to be. All of the magic methods for Python appear in the same section in the Python docs, but they're scattered about and only loosely organized. There's hardly an example to be found in that section (and that may very well be by design, since they're all detailed in the language reference, along with boring syntax descriptions, etc.).
+What are magic methods? They're everything in object-oriented Python. They're special methods that you can define to add "magic" to your classes. They're always surrounded by double underscores (e.g. `__init__` or `__lt__`). They're also not as well documented as they need to be. All of the magic methods for Python appear in the same section in the Python docs, but they're scattered about and only loosely organized. There's hardly an example to be found in that section (and that may very well be by design, since they're all detailed in the language reference, along with boring syntax descriptions, etc.).
 
 So, to fix what I perceived as a flaw in Python's documentation, I set out to provide some more plain-English, example-driven documentation for Python's magic methods. I started out with weekly blog posts, and now that I've finished with those, I've put together this guide.
 
