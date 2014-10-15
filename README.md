@@ -67,7 +67,6 @@ Putting it all together, here's an example of `__init__` and `__del__` in action
             self.file.close()
             del self.file
 ```
-<br/>
 
 ## <a></a>Making Operators Work on Custom Classes
 
@@ -77,7 +76,6 @@ One of the biggest advantages of using Python's magic methods is that they provi
     if instance.equals(other_instance):
         # do something
 ```
-<br/>
 
 You could certainly do this in Python, too, but this adds confusion and is unnecessarily verbose. Different libraries might use different names for the same operations, making the client do way more work than necessary. With the power of magic methods, however, we can define one method (`__eq__`, in this case), and say what we mean instead:
 
@@ -85,11 +83,10 @@ You could certainly do this in Python, too, but this adds confusion and is unnec
     if instance == other_instance:
         #do something
 ```
-<br/>
 
 That's part of the power of magic methods. The vast majority of them allow us to define meaning for operators so that we can use them on our own classes just like they were built in types.
 
-## <a id="comparison"></a>Comparison magic methods
+## <a></a>Comparison magic methods
 
 Python has a whole slew of magic methods designed to implement intuitive comparisons between objects using operators, not awkward method calls. They also provide a way to override the default Python behavior for comparisons of objects (by reference). Here's the list of those methods and what they do:
 
@@ -130,7 +127,7 @@ Now, we can create two `Words` (by using `Word('foo')` and `Word('bar')`) and co
 
 Now would be a good time to note that you don't have to define every comparison magic method to get rich comparisons. The standard library has kindly provided us with a class decorator in the module `functools` that will define all rich comparison methods if you only define `__eq__` and one other (e.g. `__gt__`, `__lt__`, etc.) This feature is only available in Python 2.7, but when you get a chance it saves a great deal of time and effort. You can use it by placing `@total_ordering` above your class definition.
 
-Numeric magic methods
+## <a></a>Numeric magic methods
 
 Just like you can create ways for instances of your class to be compared with comparison operators, you can define behavior for numeric operators. Buckle your seat belts, folks, there's a lot of these. For organization's sake, I've split the numeric magic methods into 5 categories: unary operators, normal arithmetic operators, reflected arithmetic operators (more on this later), augmented assignment, and type conversions.
 
