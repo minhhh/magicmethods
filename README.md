@@ -167,176 +167,149 @@ Now, we cover the typical binary operators (and a function or two): `+`, `-`, `*
 
 You know how I said I would get to reflected arithmetic in a bit? Some of you might think it's some big, scary, foreign concept. It's actually quite simple. Here's an example:
 
-some_object + other
+    some_object + other
 That was "normal" addition. The reflected equivalent is the same thing, except with the operands switched around:
 
+```python
 other + some_object
-So, all of these magic methods do the same thing as their normal equivalents, except the perform the operation with other as the first operand and self as the second, rather than the other way around. In most cases, the result of a reflected operation is the same as its normal equivalent, so you may just end up defining __radd__ as calling __add__ and so on. Note that the object on the left hand side of the operator (other in the example) must not define (or return NotImplemented) for its definition of the non-reflected version of an operation. For instance, in the example, some_object.__radd__ will only be called if other does not define __add__.
+```
+<br/>
 
-__radd__(self, other)
-Implements reflected addition.
-__rsub__(self, other)
-Implements reflected subtraction.
-__rmul__(self, other)
-Implements reflected multiplication.
-__rfloordiv__(self, other)
-Implements reflected integer division using the // operator.
-__rdiv__(self, other)
-Implements reflected division using the / operator.
-__rtruediv__(self, other)
-Implements reflected true division. Note that this only works when from __future__ import division is in effect.
-__rmod__(self, other)
-Implements reflected modulo using the % operator.
-__rdivmod__(self, other)
-Implements behavior for long division using the divmod() built in function, when divmod(other, self) is called.
-__rpow__
-Implements behavior for reflected exponents using the ** operator.
-__rlshift__(self, other)
-Implements reflected left bitwise shift using the << operator.
-__rrshift__(self, other)
-Implements reflected right bitwise shift using the >> operator.
-__rand__(self, other)
-Implements reflected bitwise and using the & operator.
-__ror__(self, other)
-Implements reflected bitwise or using the | operator.
-__rxor__(self, other)
-Implements reflected bitwise xor using the ^ operator.
-Augmented assignment
+So, all of these magic methods do the same thing as their normal equivalents, except the perform the operation with other as the first operand and self as the second, rather than the other way around. In most cases, the result of a reflected operation is the same as its normal equivalent, so you may just end up defining `__radd__` as calling `__add__` and so on. Note that the object on the left hand side of the operator (`other` in the example) must not define (or return `NotImplemented`) for its definition of the non-reflected version of an operation. For instance, in the example, `some_object.__radd__` will only be called if other does not define `__add__`.
+
+* `__radd__(self, other)` Implements reflected addition.
+* `__rsub__(self, other)` Implements reflected subtraction.
+* `__rmul__(self, other)` Implements reflected multiplication.
+* `__rfloordiv__(self, other)` Implements reflected integer division using the `//` operator.
+* `__rdiv__(self, other)` Implements reflected division using the `/` operator.
+* `__rtruediv__(self, other)` Implements reflected true division. Note that this only works when from `__future__ import division` is in effect.
+* `__rmod__(self, other)` Implements reflected modulo using the `%` operator.
+* `__rdivmod__(self, other)` Implements behavior for long division using the `divmod()` built in function, when `divmod(other, self)` is called.
+* `__rpow__` Implements behavior for reflected exponents using the `**` operator.
+* `__rlshift__(self, other)` Implements reflected left bitwise shift using the `<<` operator.
+* `__rrshift__(self, other)` Implements reflected right bitwise shift using the `>>` operator.
+* `__rand__(self, other)` Implements reflected bitwise and using the `&` operator.
+* `__ror__(self, other)` Implements reflected bitwise or using the `|` operator.
+* `__rxor__(self, other)` Implements reflected bitwise xor using the `^` operator.
+
+#### <a></a>Augmented assignment
 
 Python also has a wide variety of magic methods to allow custom behavior to be defined for augmented assignment. You're probably already familiar with augmented assignment, it combines "normal" operators with assignment. If you still don't know what I'm talking about, here's an example:
 
-x = 5
-x += 1 # in other words x = x + 1
-Each of these methods should return the value that the variable on the left hand side should be assigned to (for instance, for a += b, __iadd__ might return a + b, which would be assigned to a). Here's the list:
+```python
+    x = 5
+    x += 1 # in other words x = x + 1
+```
+<br/>
 
-__iadd__(self, other)
-Implements addition with assignment.
-__isub__(self, other)
-Implements subtraction with assignment.
-__imul__(self, other)
-Implements multiplication with assignment.
-__ifloordiv__(self, other)
-Implements integer division with assignment using the //= operator.
-__idiv__(self, other)
-Implements division with assignment using the /= operator.
-__itruediv__(self, other)
-Implements true division with assignment. Note that this only works when from __future__ import division is in effect.
-__imod__(self, other)
-Implements modulo with assignment using the %= operator.
-__ipow__
-Implements behavior for exponents with assignment using the **= operator.
-__ilshift__(self, other)
-Implements left bitwise shift with assignment using the <<= operator.
-__irshift__(self, other)
-Implements right bitwise shift with assignment using the >>= operator.
-__iand__(self, other)
-Implements bitwise and with assignment using the &= operator.
-__ior__(self, other)
-Implements bitwise or with assignment using the |= operator.
-__ixor__(self, other)
-Implements bitwise xor with assignment using the ^= operator.
-Type conversion magic methods
+Each of these methods should return the value that the variable on the left hand side should be assigned to (for instance, for `a += b`, `__iadd__` might return `a + b`, which would be assigned to `a`). Here's the list:
+
+* `__iadd__(self, other)` Implements addition with assignment.
+* `__isub__(self, other)` Implements subtraction with assignment.
+* `__imul__(self, other)` Implements multiplication with assignment.
+* `__ifloordiv__(self, other)` Implements integer division with assignment using the `//=` operator.
+* `__idiv__(self, other)` Implements division with assignment using the `/=` operator.
+* `__itruediv__(self, other)` Implements true division with assignment. Note that this only works when from `__future__ import division` is in effect.
+* `__imod__(self, other)` Implements modulo with assignment using the `%=` operator.
+* `__ipow__` Implements behavior for exponents with assignment using the `**=` operator.
+* `__ilshift__(self, other)` Implements left bitwise shift with assignment using the `<<=` operator.
+* `__irshift__(self, other)` Implements right bitwise shift with assignment using the `>>=` operator.
+* `__iand__(self, other)` Implements bitwise and with assignment using the `&=` operator.
+* `__ior__(self, other)` Implements bitwise or with assignment using the `|=` operator.
+* `__ixor__(self, other)` Implements bitwise xor with assignment using the `^=` operator.
+
+#### <a></a>Type conversion magic methods
 
 Python also has an array of magic methods designed to implement behavior for built in type conversion functions like float(). Here they are:
 
-__int__(self)
-Implements type conversion to int.
-__long__(self)
-Implements type conversion to long.
-__float__(self)
-Implements type conversion to float.
-__complex__(self)
-Implements type conversion to complex.
-__oct__(self)
-Implements type conversion to octal.
-__hex__(self)
-Implements type conversion to hexadecimal.
-__index__(self)
-Implements type conversion to an int when the object is used in a slice expression. If you define a custom numeric type that might be used in slicing, you should define __index__.
-__trunc__(self)
-Called when math.trunc(self) is called. __trunc__ should return the value of `self truncated to an integral type (usually a long).
-__coerce__(self, other)
-Method to implement mixed mode arithmetic. __coerce__ should return None if type conversion is impossible. Otherwise, it should return a pair (2-tuple) of self and other, manipulated to have the same type.
-Representing your Classes
+* `__int__(self)` Implements type conversion to int.
+* `__long__(self)` Implements type conversion to long.
+* `__float__(self)` Implements type conversion to float.
+* `__complex__(self)` Implements type conversion to complex.
+* `__oct__(self)` Implements type conversion to octal.
+* `__hex__(self)` Implements type conversion to hexadecimal.
+* `__index__(self)` Implements type conversion to an int when the object is used in a slice expression. If you define a custom numeric type that might be used in slicing, you should define `__index__`.
+* `__trunc__(self)` Called when `math.trunc(self)` is called. `__trunc__` should return the value of self truncated to an integral type (usually a long).
+* `__coerce__(self, other)` Method to implement mixed mode arithmetic. `__coerce__` should return None if type conversion is impossible. Otherwise, it should return a pair (2-tuple) of `self` and `other`, manipulated to have the same type.
+
+## <a></a>Representing your Classes
 
 It's often useful to have a string representation of a class. In Python, there's a few methods that you can implement in your class definition to customize how built in functions that return representations of your class behave.
 
-__str__(self)
-Defines behavior for when str() is called on an instance of your class.
-__repr__(self)
-Defines behavior for when repr() is called on an instance of your class. The major difference between str() and repr() is intended audience. repr() is intended to produce output that is mostly machine-readable (in many cases, it could be valid Python code even), whereas str() is intended to be human-readable.
-__unicode__(self)
-Defines behavior for when unicode() is called on an instance of your class. unicode() is like str(), but it returns a unicode string. Be wary: if a client calls str() on an instance of your class and you've only defined __unicode__(), it won't work. You should always try to define __str__() as well in case someone doesn't have the luxury of using unicode.
-__format__(self, formatstr)
-Defines behavior for when an instance of your class is used in new-style string formatting. For instance, "Hello, {0:abc}!".format(a) would lead to the call a.__format__("abc"). This can be useful for defining your own numerical or string types that you might like to give special formatting options.
-__hash__(self)
-Defines behavior for when hash() is called on an instance of your class. It has to return an integer, and its result is used for quick key comparison in dictionaries. Note that this usually entails implementing __eq__ as well. Live by the following rule: a == b implies hash(a) == hash(b).
-__nonzero__(self)
-Defines behavior for when bool() is called on an instance of your class. Should return True or False, depending on whether you would want to consider the instance to be True or False.
-__dir__(self)
-Defines behavior for when dir() is called on an instance of your class. This method should return a list of attributes for the user. Typically, implementing __dir__ is unnecessary, but it can be vitally important for interactive use of your classes if you redefine __getattr__ or __getattribute__ (which you will see in the next section) or are otherwise dynamically generating attributes.
-__sizeof__(self)
-Defines behavior for when sys.getsizeof() is called on an instance of your class. This should return the size of your object, in bytes. This is generally more useful for Python classes implemented in C extensions, but it helps to be aware of it.
+* `__str__(self)` Defines behavior for when `str()` is called on an instance of your class.
+* `__repr__(self)` Defines behavior for when `repr()` is called on an instance of your class. The major difference between `str()` and `repr()` is intended audience. `repr()` is intended to produce output that is mostly machine-readable (in many cases, it could be valid Python code even), whereas `str()` is intended to be human-readable.
+* `__unicode__(self)` Defines behavior for when `unicode()` is called on an instance of your class. `unicode()` is like `str()`, but it returns a unicode string. Be wary: if a client calls `str()` on an instance of your class and you've only defined `__unicode__()`, it won't work. You should always try to define `__str__()` as well in case someone doesn't have the luxury of using unicode.
+* `__format__(self, formatstr)` Defines behavior for when an instance of your class is used in new-style string formatting. For instance, `"Hello, {0:abc}!".format(a)` would lead to the call `a.__format__("abc")`. This can be useful for defining your own numerical or string types that you might like to give special formatting options.
+* `__hash__(self)` Defines behavior for when `hash()` is called on an instance of your class. It has to return an integer, and its result is used for quick key comparison in dictionaries. Note that this usually entails implementing `__eq__` as well. Live by the following rule: `a == b` implies `hash(a) == hash(b)`.
+* `__nonzero__(self)` Defines behavior for when `bool()` is called on an instance of your class. Should return `True` or `False`, depending on whether you would want to consider the instance to be `True` or `False.`
+* `__dir__(self)` Defines behavior for when `dir()` is called on an instance of your class. This method should return a list of attributes for the user. Typically, implementing `__dir__` is unnecessary, but it can be vitally important for interactive use of your classes if you redefine `__getattr__` or `__getattribute__` (which you will see in the next section) or are otherwise dynamically generating attributes.
+* `__sizeof__(self)` Defines behavior for when `sys.getsizeof()` is called on an instance of your class. This should return the size of your object, in bytes. This is generally more useful for Python classes implemented in C extensions, but it helps to be aware of it.
+
 We're pretty much done with the boring (and example-free) part of the magic methods guide. Now that we've covered some of the more basic magic methods, it's time to move to more advanced material.
 
-Controlling Attribute Access
+## <a></a>Controlling Attribute Access
 
 Many people coming to Python from other languages complain that it lacks true encapsulation for classes (e.g. no way to define private attributes and then have public getter and setters). This couldn't be farther than the truth: it just happens that Python accomplishes a great deal of encapsulation through "magic", instead of explicit modifiers for methods or fields. Take a look:
 
-__getattr__(self, name)
-You can define behavior for when a user attempts to access an attribute that doesn't exist (either at all or yet). This can be useful for catching and redirecting common misspellings, giving warnings about using deprecated attributes (you can still choose to compute and return that attribute, if you wish), or deftly handing an AttributeError. It only gets called when a nonexistent attribute is accessed, however, so it isn't a true encapsulation solution.
-__setattr__(self, name, value)
-Unlike __getattr__, __setattr__ is an encapsulation solution. It allows you to define behavior for assignment to an attribute regardless of whether or not that attribute exists, meaning you can define custom rules for any changes in the values of attributes. However, you have to be careful with how you use __setattr__, as the example at the end of the list will show.
-__delattr__(self, name)
-This is the exact same as __setattr__, but for deleting attributes instead of setting them. The same precautions need to be taken as with __setattr__ as well in order to prevent infinite recursion (calling del self.name in the implementation of __delattr__ would cause infinite recursion).
-__getattribute__(self, name)
-After all this, __getattribute__ fits in pretty well with its companions __setattr__ and __delattr__. However, I don't recommend you use it. __getattribute__ can only be used with new-style classes (all classes are new-style in the newest versions of Python, and in older versions you can make a class new-style by subclassing object. It allows you to define rules for whenever an attribute's value is accessed. It suffers from some similar infinite recursion problems as its partners-in-crime (this time you call the base class's __getattribute__ method to prevent this). It also mainly obviates the need for __getattr__, which only gets called when __getattribute__ is implemented if it is called explicitly or an AttributeError is raised. This method can be used (after all, it's your choice), but I don't recommend it because it has a small use case (it's far more rare that we need special behavior to retrieve a value than to assign to it) and because it can be really difficult to implement bug-free.
+* `__getattr__(self, name)` You can define behavior for when a user attempts to access an attribute that doesn't exist (either at all or yet). This can be useful for catching and redirecting common misspellings, giving warnings about using deprecated attributes (you can still choose to compute and return that attribute, if you wish), or deftly handing an `AttributeError`. It only gets called when a nonexistent attribute is accessed, however, so it isn't a true encapsulation solution.
+* `__setattr__(self, name, value)` Unlike `__getattr__`, `__setattr__` is an encapsulation solution. It allows you to define behavior for assignment to an attribute regardless of whether or not that attribute exists, meaning you can define custom rules for any changes in the values of attributes. However, you have to be careful with how you use `__setattr__`, as the example at the end of the list will show.
+* `__delattr__(self, name)` This is the exact same as `__setattr__`, but for deleting attributes instead of setting them. The same precautions need to be taken as with `__setattr__` as well in order to prevent infinite recursion (calling `del self.name` in the implementation of `__delattr__` would cause infinite recursion).
+* `__getattribute__(self, name)` After all this, `__getattribute__` fits in pretty well with its companions `__setattr__` and `__delattr__`. However, I don't recommend you use it. `__getattribute__` can only be used with new-style classes (all classes are new-style in the newest versions of Python, and in older versions you can make a class new-style by subclassing object. It allows you to define rules for whenever an attribute's value is accessed. It suffers from some similar infinite recursion problems as its partners-in-crime (this time you call the base class's `__getattribute__` method to prevent this). It also mainly obviates the need for `__getattr__`, which only gets called when `__getattribute__` is implemented if it is called explicitly or an `AttributeError` is raised. This method can be used (after all, it's your choice), but I don't recommend it because it has a small use case (it's far more rare that we need special behavior to retrieve a value than to assign to it) and because it can be really difficult to implement bug-free.
+
 You can easily cause a problem in your definitions of any of the methods controlling attribute access. Consider this example:
 
-def __setattr__(self, name, value):
-    self.name = value
-    # since every time an attribute is assigned, __setattr__() is called, this
-    # is recursion.
-    # so this really means self.__setattr__('name', value). Since the method
-    # keeps calling itself, the recursion goes on forever causing a crash
-
-def __setattr__(self, name, value):
-    self.__dict__[name] = value # assigning to the dict of names in the class
-    # define custom behavior here
-Again, Python's magic methods are incredibly powerful, and with great power comes great responsibility. It's important to know the proper way to use magic methods so you don't break any code.
-
-So, what have we learned about custom attribute access in Python? It's not to be used lightly. In fact, it tends to be excessively powerful and counter-intuitive. But the reason why it exists is to scratch a certain itch: Python doesn't seek to make bad things impossible, but just to make them difficult. Freedom is paramount, so you can really do whatever you want. Here's an example of some of the special attribute access methods in action (note that we use super because not all classes have an attribute __dict__):
-
-class AccessCounter(object):
-    '''A class that contains a value and implements an access counter.
-    The counter increments each time the value is changed.'''
-
-    def __init__(self, val):
-        super(AccessCounter, self).__setattr__('counter', 0)
-        super(AccessCounter, self).__setattr__('value', val)
+```python
+    def __setattr__(self, name, value):
+        self.name = value
+        # since every time an attribute is assigned, __setattr__() is called, this
+        # is recursion.
+        # so this really means self.__setattr__('name', value). Since the method
+        # keeps calling itself, the recursion goes on forever causing a crash
 
     def __setattr__(self, name, value):
-        if name == 'value':
-            super(AccessCounter, self).__setattr__('counter', self.counter + 1)
-        # Make this unconditional.
-        # If you want to prevent other attributes to be set, raise AttributeError(name)
-        super(AccessCounter, self).__setattr__(name, value)
+        self.__dict__[name] = value # assigning to the dict of names in the class
+        # define custom behavior here
+```
+<br/>
 
-    def __delattr__(self, name):
-        if name == 'value':
-            super(AccessCounter, self).__setattr__('counter', self.counter + 1)
-        super(AccessCounter, self).__delattr__(name)
-Making Custom Sequences
+Again, Python's magic methods are incredibly powerful, and with great power comes great responsibility. It's important to know the proper way to use magic methods so you don't break any code.
+
+So, what have we learned about custom attribute access in Python? It's not to be used lightly. In fact, it tends to be excessively powerful and counter-intuitive. But the reason why it exists is to scratch a certain itch: Python doesn't seek to make bad things impossible, but just to make them difficult. Freedom is paramount, so you can really do whatever you want. Here's an example of some of the special attribute access methods in action (note that we use super because not all classes have an attribute `__dict__`):
+
+```python
+    class AccessCounter(object):
+        '''A class that contains a value and implements an access counter.
+        The counter increments each time the value is changed.'''
+
+        def __init__(self, val):
+            super(AccessCounter, self).__setattr__('counter', 0)
+            super(AccessCounter, self).__setattr__('value', val)
+
+        def __setattr__(self, name, value):
+            if name == 'value':
+                super(AccessCounter, self).__setattr__('counter', self.counter + 1)
+            # Make this unconditional.
+            # If you want to prevent other attributes to be set, raise AttributeError(name)
+            super(AccessCounter, self).__setattr__(name, value)
+
+        def __delattr__(self, name):
+            if name == 'value':
+                super(AccessCounter, self).__setattr__('counter', self.counter + 1)
+            super(AccessCounter, self).__delattr__(name)
+```
+<br/>
+
+## <a></a>Making Custom Sequences
 
 There's a number of ways to get your Python classes to act like built in sequences (dict, tuple, list, string, etc.). These are by far my favorite magic methods in Python because of the absurd degree of control they give you and the way that they magically make a whole array of global functions work beautifully on instances of your class. But before we get down to the good stuff, a quick word on requirements.
 
-Requirements
+### <a></a>Requirements
 
 Now that we're talking about creating your own sequences in Python, it's time to talk about protocols. Protocols are somewhat similar to interfaces in other languages in that they give you a set of methods you must define. However, in Python protocols are totally informal and require no explicit declarations to implement. Rather, they're more like guidelines.
 
-Why are we talking about protocols now? Because implementing custom container types in Python involves using some of these protocols. First, there's the protocol for defining immutable containers: to make an immutable container, you need only define __len__ and __getitem__ (more on these later). The mutable container protocol requires everything that immutable containers require plus __setitem__ and __delitem__. Lastly, if you want your object to be iterable, you'll have to define __iter__, which returns an iterator. That iterator must conform to an iterator protocol, which requires iterators to have methods called __iter__(returning itself) and next.
+Why are we talking about protocols now? Because implementing custom container types in Python involves using some of these protocols. First, there's the protocol for defining immutable containers: to make an immutable container, you need only define `__len__` and `__getitem__` (more on these later). The mutable container protocol requires everything that immutable containers require plus `__setitem__` and `__delitem__.` Lastly, if you want your object to be iterable, you'll have to define `__iter__`, which returns an iterator. That iterator must conform to an iterator protocol, which requires iterators to have methods called `__iter__`(returning itself) and `next`.
 
-The magic behind containers
+### <a></a>The magic behind containers
 
 Without any more wait, here are the magic methods that containers use:
 
