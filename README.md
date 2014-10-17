@@ -322,94 +322,104 @@ Without any more wait, here are the magic methods that containers use:
 * `__contains__(self, item)` `__contains__` defines behavior for membership tests using in and not in. Why isn't this part of a sequence protocol, you ask? Because when `__contains__` isn't defined, Python just iterates over the sequence and returns `True` if it comes across the item it's looking for.
 * `__missing__(self, key)` `__missing__` is used in subclasses of `dict`. It defines behavior for whenever a key is accessed that does not exist in a dictionary (so, for instance, if I had a dictionary `d` and said `d["george"]` when "george" is not a key in the dict, `d.__missing__("george")` would be called).
 
-An example
+### <a></a>An example
 
 For our example, let's look at a list that implements some functional constructs that you might be used to from other languages (Haskell, for example).
 
-class FunctionalList:
-    '''A class wrapping a list with some extra functional magic, like head,
-    tail, init, last, drop, and take.'''
+```python
+    class FunctionalList:
+        '''A class wrapping a list with some extra functional magic, like head,
+        tail, init, last, drop, and take.'''
 
-    def __init__(self, values=None):
-        if values is None:
-            self.values = []
-        else:
-            self.values = values
+        def __init__(self, values=None):
+            if values is None:
+                self.values = []
+            else:
+                self.values = values
 
-    def __len__(self):
-        return len(self.values)
+        def __len__(self):
+            return len(self.values)
 
-    def __getitem__(self, key):
-        # if key is of invalid type or value, the list values will raise the error
-        return self.values[key]
+        def __getitem__(self, key):
+            # if key is of invalid type or value, the list values will raise the error
+            return self.values[key]
 
-    def __setitem__(self, key, value):
-        self.values[key] = value
+        def __setitem__(self, key, value):
+            self.values[key] = value
 
-    def __delitem__(self, key):
-        del self.values[key]
+        def __delitem__(self, key):
+            del self.values[key]
 
-    def __iter__(self):
-        return iter(self.values)
+        def __iter__(self):
+            return iter(self.values)
 
-    def __reversed__(self):
-        return FunctionalList(reversed(self.values))
+        def __reversed__(self):
+            return FunctionalList(reversed(self.values))
 
-    def append(self, value):
-        self.values.append(value)
-    def head(self):
-        # get the first element
-        return self.values[0]
-    def tail(self):
-        # get all elements after the first
-        return self.values[1:]
-    def init(self):
-        # get elements up to the last
-        return self.values[:-1]
-    def last(self):
-        # get last element
-        return self.values[-1]
-    def drop(self, n):
-        # get all elements except first n
-        return self.values[n:]
-    def take(self, n):
-        # get first n elements
-        return self.values[:n]
+        def append(self, value):
+            self.values.append(value)
+        def head(self):
+            # get the first element
+            return self.values[0]
+        def tail(self):
+            # get all elements after the first
+            return self.values[1:]
+        def init(self):
+            # get elements up to the last
+            return self.values[:-1]
+        def last(self):
+            # get last element
+            return self.values[-1]
+        def drop(self, n):
+            # get all elements except first n
+            return self.values[n:]
+        def take(self, n):
+            # get first n elements
+            return self.values[:n]
+```
+<br/>
+
 There you have it, a (marginally) useful example of how to implement your own sequence. Of course, there are more useful applications of custom sequences, but quite a few of them are already implemented in the standard library (batteries included, right?), like Counter, OrderedDict, and NamedTuple.
 
-Reflection
+## <a></a>Reflection
 
-You can also control how reflection using the built in functions isinstance() and issubclass()behaves by defining magic methods. The magic methods are:
+You can also control how reflection using the built in functions `isinstance()` and `issubclass()` behaves by defining magic methods. The magic methods are:
 
-__instancecheck__(self, instance)
-Checks if an instance is an instance of the class you defined (e.g. isinstance(instance, class).
-__subclasscheck__(self, subclass)
-Checks if a class subclasses the class you defined (e.g. issubclass(subclass, class)).
+```python
+    __instancecheck__(self, instance) Checks if an instance is an instance of the class you defined (e.g. isinstance(instance, class).
+    __subclasscheck__(self, subclass) Checks if a class subclasses the class you defined (e.g. issubclass(subclass, class)).
+```
+<br/>
+
 The use case for these magic methods might seem small, and that may very well be true. I won't spend too much more time on reflection magic methods because they aren't very important, but they reflect something important about object-oriented programming in Python and Python in general: there is almost always an easy way to do something, even if it's rarely necessary. These magic methods might not seem useful, but if you ever need them you'll be glad that they're there (and that you read this guide!).
 
-Callable Objects
+## <a></a>Callable Objects
 
 As you may already know, in Python, functions are first-class objects. This means that they can be passed to functions and methods just as if they were objects of any other kind. This is an incredibly powerful feature.
 
 A special magic method in Python allows instances of your classes to behave as if they were functions, so that you can "call" them, pass them to functions that take functions as arguments, and so on. This is another powerful convenience feature that makes programming in Python that much sweeter.
 
-__call__(self, [args...])
-Allows an instance of a class to be called as a function. Essentially, this means that x() is the same as x.__call__(). Note that __call__ takes a variable number of arguments; this means that you define __call__ as you would any other function, taking however many arguments you'd like it to.
-__call__ can be particularly useful in classes whose instances that need to often change state. "Calling" the instance can be an intuitive and elegant way to change the object's state. An example might be a class representing an entity's position on a plane:
+* `__call__(self, [args...])` -  Allows an instance of a class to be called as a function. Essentially, this means that `x()` is the same as `x.__call__()`. Note that `__call__` takes a variable number of arguments; this means that you define `__call__` as you would any other function, taking however many arguments you'd like it to.
 
-class Entity:
-    '''Class to represent an entity. Callable to update the entity's position.'''
+`__call__` can be particularly useful in classes whose instances that need to often change state. "Calling" the instance can be an intuitive and elegant way to change the object's state. An example might be a class representing an entity's position on a plane:
 
-    def __init__(self, size, x, y):
-        self.x, self.y = x, y
-        self.size = size
+```python
+    class Entity:
+        '''Class to represent an entity. Callable to update the entity's position.'''
 
-    def __call__(self, x, y):
-        '''Change the position of the entity.'''
-        self.x, self.y = x, y
+        def __init__(self, size, x, y):
+            self.x, self.y = x, y
+            self.size = size
 
-    # snip...
-Context Managers
+        def __call__(self, x, y):
+            '''Change the position of the entity.'''
+            self.x, self.y = x, y
+
+        # snip...
+```
+<br/>
+
+## <a></a>Context Managers
 
 In Python 2.5, a new keyword was introduced in Python along with a new method for code reuse, the with statement. The concept of context managers was hardly new in Python (it was implemented before as a part of the library), but not until PEP 343 was accepted did it achieve status as a first class language construct. You may have seen with statements before:
 
