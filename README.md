@@ -86,7 +86,7 @@ You could certainly do this in Python, too, but this adds confusion and is unnec
 
 That's part of the power of magic methods. The vast majority of them allow us to define meaning for operators so that we can use them on our own classes just like they were built in types.
 
-## <a></a>Comparison magic methods
+### <a></a>Comparison magic methods
 
 Python has a whole slew of magic methods designed to implement intuitive comparisons between objects using operators, not awkward method calls. They also provide a way to override the default Python behavior for comparisons of objects (by reference). Here's the list of those methods and what they do:
 
@@ -127,63 +127,43 @@ Now, we can create two `Words` (by using `Word('foo')` and `Word('bar')`) and co
 
 Now would be a good time to note that you don't have to define every comparison magic method to get rich comparisons. The standard library has kindly provided us with a class decorator in the module `functools` that will define all rich comparison methods if you only define `__eq__` and one other (e.g. `__gt__`, `__lt__`, etc.) This feature is only available in Python 2.7, but when you get a chance it saves a great deal of time and effort. You can use it by placing `@total_ordering` above your class definition.
 
-## <a></a>Numeric magic methods
+### <a></a>Numeric magic methods
 
 Just like you can create ways for instances of your class to be compared with comparison operators, you can define behavior for numeric operators. Buckle your seat belts, folks, there's a lot of these. For organization's sake, I've split the numeric magic methods into 5 categories: unary operators, normal arithmetic operators, reflected arithmetic operators (more on this later), augmented assignment, and type conversions.
 
-Unary operators and functions
+#### <a></a>Unary operators and functions
 
 Unary operators and functions only have one operand, e.g. negation, absolute value, etc.
 
-__pos__(self)
-Implements behavior for unary positive (e.g. +some_object)
-__neg__(self)
-Implements behavior for negation (e.g. -some_object)
-__abs__(self)
-Implements behavior for the built in abs() function.
-__invert__(self)
-Implements behavior for inversion using the ~ operator. For an explanation on what this does, see the Wikipedia article on bitwise operations.
-__round__(self, n)
-Implements behavior for the built in round() function. n is the number of decimal places to round to.
-__floor__(self)
-Implements behavior for math.floor(), i.e., rounding down to the nearest integer.
-__ceil__(self)
-Implements behavior for math.ceil(), i.e., rounding up to the nearest integer.
-__trunc__(self)
-Implements behavior for math.trunc(), i.e., truncating to an integral.
-Normal arithmetic operators
+* `__pos__(self)` - Implements behavior for unary positive (e.g. `+some_object`)
+* `__neg__(self)` - Implements behavior for negation (e.g. `-some_object`)
+* `__abs__(self)` - Implements behavior for the built in `abs()` function.
+* `__invert__(self)` - Implements behavior for inversion using the ~ operator. For an explanation on what this does, see the Wikipedia article on bitwise operations.
+* `__round__(self, n)` - Implements behavior for the built in `round()` function. `n` is the number of decimal places to round to.
+* `__floor__(self)` - Implements behavior for `math.floor()`, i.e., rounding down to the nearest integer.
+* `__ceil__(self)` - Implements behavior for `math.ceil()`, i.e., rounding up to the nearest integer.
+* `__trunc__(self)` - Implements behavior for `math.trunc()`, i.e., truncating to an integral.
 
-Now, we cover the typical binary operators (and a function or two): +, -, * and the like. These are, for the most part, pretty self-explanatory.
+#### <a></a>Normal arithmetic operators
 
-__add__(self, other)
-Implements addition.
-__sub__(self, other)
-Implements subtraction.
-__mul__(self, other)
-Implements multiplication.
-__floordiv__(self, other)
-Implements integer division using the // operator.
-__div__(self, other)
-Implements division using the / operator.
-__truediv__(self, other)
-Implements true division. Note that this only works when from __future__ import division is in effect.
-__mod__(self, other)
-Implements modulo using the % operator.
-__divmod__(self, other)
-Implements behavior for long division using the divmod() built in function.
-__pow__
-Implements behavior for exponents using the ** operator.
-__lshift__(self, other)
-Implements left bitwise shift using the << operator.
-__rshift__(self, other)
-Implements right bitwise shift using the >> operator.
-__and__(self, other)
-Implements bitwise and using the & operator.
-__or__(self, other)
-Implements bitwise or using the | operator.
-__xor__(self, other)
-Implements bitwise xor using the ^ operator.
-Reflected arithmetic operators
+Now, we cover the typical binary operators (and a function or two): `+`, `-`, `*` and the like. These are, for the most part, pretty self-explanatory.
+
+* `__add__(self, other)` Implements addition.
+* `__sub__(self, other)` Implements subtraction.
+* `__mul__(self, other)` Implements multiplication.
+* `__floordiv__(self, other)` Implements integer division using the `//` operator.
+* `__div__(self, other)` Implements division using the `/` operator.
+* `__truediv__(self, other)` Implements true division. Note that this only works when from `__future__ import division` is in effect.
+* `__mod__(self, other)` Implements modulo using the `%` operator.
+* `__divmod__(self, other)` Implements behavior for long division using the `divmod()` built in function.
+* `__pow__` Implements behavior for exponents using the `**` operator.
+* `__lshift__`(self, other) Implements left bitwise shift using the `<<` operator.
+* `__rshift__`(self, other) Implements right bitwise shift using the `>>` operator.
+* `__and__(self, other)` Implements bitwise and using the `&` operator.
+* `__or__(self, other)` Implements bitwise or using the `|` operator.
+* `__xor__(self, other)` Implements bitwise xor using the `^` operator.
+
+#### <a></a>Reflected arithmetic operators
 
 You know how I said I would get to reflected arithmetic in a bit? Some of you might think it's some big, scary, foreign concept. It's actually quite simple. Here's an example:
 
