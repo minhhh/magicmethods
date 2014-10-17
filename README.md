@@ -313,22 +313,15 @@ Why are we talking about protocols now? Because implementing custom container ty
 
 Without any more wait, here are the magic methods that containers use:
 
-__len__(self)
-Returns the length of the container. Part of the protocol for both immutable and mutable containers.
-__getitem__(self, key)
-Defines behavior for when an item is accessed, using the notation self[key]. This is also part of both the mutable and immutable container protocols. It should also raise appropriate exceptions: TypeError if the type of the key is wrong and KeyError if there is no corresponding value for the key.
-__setitem__(self, key, value)
-Defines behavior for when an item is assigned to, using the notation self[nkey] = value. This is part of the mutable container protocol. Again, you should raise KeyError and TypeError where appropriate.
-__delitem__(self, key)
-Defines behavior for when an item is deleted (e.g. del self[key]). This is only part of the mutable container protocol. You must raise the appropriate exceptions when an invalid key is used.
-__iter__(self)
-Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the iter() built in function and when a container is looped over using the form for x in container:. Iterators are their own objects, and they also must define an __iter__ method that returns self.
-__reversed__(self)
-Called to implement behavior for the reversed() built in function. Should return a reversed version of the sequence. Implement this only if the sequence class is ordered, like list or tuple.
-__contains__(self, item)
-__contains__ defines behavior for membership tests using in and not in. Why isn't this part of a sequence protocol, you ask? Because when __contains__ isn't defined, Python just iterates over the sequence and returns True if it comes across the item it's looking for.
-__missing__(self, key)
-__missing__ is used in subclasses of dict. It defines behavior for whenever a key is accessed that does not exist in a dictionary (so, for instance, if I had a dictionary d and said d["george"] when "george" is not a key in the dict, d.__missing__("george") would be called).
+* `__len__(self)` Returns the length of the container. Part of the protocol for both immutable and mutable containers.
+* `__getitem__(self, key)` Defines behavior for when an item is accessed, using the notation `self[key]`. This is also part of both the mutable and immutable container protocols. It should also raise appropriate exceptions: `TypeError` if the type of the key is wrong and `KeyError` if there is no corresponding value for the key.
+* `__setitem__(self, key, value)` Defines behavior for when an item is assigned to, using the notation `self[nkey] = value`. This is part of the mutable container protocol. Again, you should raise `KeyError` and `TypeError` where appropriate.
+* `__delitem__(self, key)` Defines behavior for when an item is deleted (e.g. `del self[key]`). This is only part of the mutable container protocol. You must raise the appropriate exceptions when an invalid key is used.
+* `__iter__(self)` Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the `iter()` built in function and when a container is looped over using the form `for x in container:`. Iterators are their own objects, and they also must define an `__iter__` method that returns `self`.
+* `__reversed__(self)` Called to implement behavior for the `reversed()` built in function. Should return a reversed version of the sequence. Implement this only if the sequence class is ordered, like list or tuple.
+* `__contains__(self, item)` `__contains__` defines behavior for membership tests using in and not in. Why isn't this part of a sequence protocol, you ask? Because when `__contains__` isn't defined, Python just iterates over the sequence and returns `True` if it comes across the item it's looking for.
+* `__missing__(self, key)` `__missing__` is used in subclasses of `dict`. It defines behavior for whenever a key is accessed that does not exist in a dictionary (so, for instance, if I had a dictionary `d` and said `d["george"]` when "george" is not a key in the dict, `d.__missing__("george")` would be called).
+
 An example
 
 For our example, let's look at a list that implements some functional constructs that you might be used to from other languages (Haskell, for example).
