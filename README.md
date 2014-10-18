@@ -148,20 +148,20 @@ Unary operators and functions only have one operand, e.g. negation, absolute val
 
 Now, we cover the typical binary operators (and a function or two): `+`, `-`, `*` and the like. These are, for the most part, pretty self-explanatory.
 
-* `__add__(self, other)` Implements addition.
-* `__sub__(self, other)` Implements subtraction.
-* `__mul__(self, other)` Implements multiplication.
-* `__floordiv__(self, other)` Implements integer division using the `//` operator.
-* `__div__(self, other)` Implements division using the `/` operator.
-* `__truediv__(self, other)` Implements true division. Note that this only works when from `__future__ import division` is in effect.
-* `__mod__(self, other)` Implements modulo using the `%` operator.
-* `__divmod__(self, other)` Implements behavior for long division using the `divmod()` built in function.
-* `__pow__` Implements behavior for exponents using the `**` operator.
-* `__lshift__`(self, other) Implements left bitwise shift using the `<<` operator.
-* `__rshift__`(self, other) Implements right bitwise shift using the `>>` operator.
-* `__and__(self, other)` Implements bitwise and using the `&` operator.
-* `__or__(self, other)` Implements bitwise or using the `|` operator.
-* `__xor__(self, other)` Implements bitwise xor using the `^` operator.
+* `__add__(self, other)` - Implements addition.
+* `__sub__(self, other)` - Implements subtraction.
+* `__mul__(self, other)` - Implements multiplication.
+* `__floordiv__(self, other)` - Implements integer division using the `//` operator.
+* `__div__(self, other)` - Implements division using the `/` operator.
+* `__truediv__(self, other)` - Implements true division. Note that this only works when from `__future__ import division` is in effect.
+* `__mod__(self, other)` - Implements modulo using the `%` operator.
+* `__divmod__(self, other)` - Implements behavior for long division using the `divmod()` built in function.
+* `__pow__` - Implements behavior for exponents using the `**` operator.
+* `__lshift__` -(self, other) Implements left bitwise shift using the `<<` operator.
+* `__rshift__` -(self, other) Implements right bitwise shift using the `>>` operator.
+* `__and__(self, other)` - Implements bitwise and using the `&` operator.
+* `__or__(self, other)` - Implements bitwise or using the `|` operator.
+* `__xor__(self, other)` - Implements bitwise xor using the `^` operator.
 
 #### <a></a>Reflected arithmetic operators
 
@@ -177,20 +177,20 @@ other + some_object
 
 So, all of these magic methods do the same thing as their normal equivalents, except the perform the operation with other as the first operand and self as the second, rather than the other way around. In most cases, the result of a reflected operation is the same as its normal equivalent, so you may just end up defining `__radd__` as calling `__add__` and so on. Note that the object on the left hand side of the operator (`other` in the example) must not define (or return `NotImplemented`) for its definition of the non-reflected version of an operation. For instance, in the example, `some_object.__radd__` will only be called if other does not define `__add__`.
 
-* `__radd__(self, other)` Implements reflected addition.
-* `__rsub__(self, other)` Implements reflected subtraction.
-* `__rmul__(self, other)` Implements reflected multiplication.
-* `__rfloordiv__(self, other)` Implements reflected integer division using the `//` operator.
-* `__rdiv__(self, other)` Implements reflected division using the `/` operator.
-* `__rtruediv__(self, other)` Implements reflected true division. Note that this only works when from `__future__ import division` is in effect.
-* `__rmod__(self, other)` Implements reflected modulo using the `%` operator.
-* `__rdivmod__(self, other)` Implements behavior for long division using the `divmod()` built in function, when `divmod(other, self)` is called.
-* `__rpow__` Implements behavior for reflected exponents using the `**` operator.
-* `__rlshift__(self, other)` Implements reflected left bitwise shift using the `<<` operator.
-* `__rrshift__(self, other)` Implements reflected right bitwise shift using the `>>` operator.
-* `__rand__(self, other)` Implements reflected bitwise and using the `&` operator.
-* `__ror__(self, other)` Implements reflected bitwise or using the `|` operator.
-* `__rxor__(self, other)` Implements reflected bitwise xor using the `^` operator.
+* `__radd__(self, other)` - Implements reflected addition.
+* `__rsub__(self, other)` - Implements reflected subtraction.
+* `__rmul__(self, other)` - Implements reflected multiplication.
+* `__rfloordiv__(self, other)` - Implements reflected integer division using the `//` operator.
+* `__rdiv__(self, other)` - Implements reflected division using the `/` operator.
+* `__rtruediv__(self, other)` - Implements reflected true division. Note that this only works when from `__future__ import division` is in effect.
+* `__rmod__(self, other)` - Implements reflected modulo using the `%` operator.
+* `__rdivmod__(self, other)` - Implements behavior for long division using the `divmod()` built in function, when `divmod(other, self)` is called.
+* `__rpow__` - Implements behavior for reflected exponents using the `**` operator.
+* `__rlshift__(self, other)` - Implements reflected left bitwise shift using the `<<` operator.
+* `__rrshift__(self, other)` - Implements reflected right bitwise shift using the `>>` operator.
+* `__rand__(self, other)` - Implements reflected bitwise and using the `&` operator.
+* `__ror__(self, other)` - Implements reflected bitwise or using the `|` operator.
+* `__rxor__(self, other)` - Implements reflected bitwise xor using the `^` operator.
 
 #### <a></a>Augmented assignment
 
@@ -204,46 +204,46 @@ Python also has a wide variety of magic methods to allow custom behavior to be d
 
 Each of these methods should return the value that the variable on the left hand side should be assigned to (for instance, for `a += b`, `__iadd__` might return `a + b`, which would be assigned to `a`). Here's the list:
 
-* `__iadd__(self, other)` Implements addition with assignment.
-* `__isub__(self, other)` Implements subtraction with assignment.
-* `__imul__(self, other)` Implements multiplication with assignment.
-* `__ifloordiv__(self, other)` Implements integer division with assignment using the `//=` operator.
-* `__idiv__(self, other)` Implements division with assignment using the `/=` operator.
-* `__itruediv__(self, other)` Implements true division with assignment. Note that this only works when from `__future__ import division` is in effect.
-* `__imod__(self, other)` Implements modulo with assignment using the `%=` operator.
-* `__ipow__` Implements behavior for exponents with assignment using the `**=` operator.
-* `__ilshift__(self, other)` Implements left bitwise shift with assignment using the `<<=` operator.
-* `__irshift__(self, other)` Implements right bitwise shift with assignment using the `>>=` operator.
-* `__iand__(self, other)` Implements bitwise and with assignment using the `&=` operator.
-* `__ior__(self, other)` Implements bitwise or with assignment using the `|=` operator.
-* `__ixor__(self, other)` Implements bitwise xor with assignment using the `^=` operator.
+* `__iadd__(self, other)` - Implements addition with assignment.
+* `__isub__(self, other)` - Implements subtraction with assignment.
+* `__imul__(self, other)` - Implements multiplication with assignment.
+* `__ifloordiv__(self, other)` - Implements integer division with assignment using the `//=` operator.
+* `__idiv__(self, other)` - Implements division with assignment using the `/=` operator.
+* `__itruediv__(self, other)` - Implements true division with assignment. Note that this only works when from `__future__ import division` is in effect.
+* `__imod__(self, other)` - Implements modulo with assignment using the `%=` operator.
+* `__ipow__` - Implements behavior for exponents with assignment using the `**=` operator.
+* `__ilshift__(self, other)` - Implements left bitwise shift with assignment using the `<<=` operator.
+* `__irshift__(self, other)` - Implements right bitwise shift with assignment using the `>>=` operator.
+* `__iand__(self, other)` - Implements bitwise and with assignment using the `&=` operator.
+* `__ior__(self, other)` - Implements bitwise or with assignment using the `|=` operator.
+* `__ixor__(self, other)` - Implements bitwise xor with assignment using the `^=` operator.
 
 #### <a></a>Type conversion magic methods
 
 Python also has an array of magic methods designed to implement behavior for built in type conversion functions like float(). Here they are:
 
-* `__int__(self)` Implements type conversion to int.
-* `__long__(self)` Implements type conversion to long.
-* `__float__(self)` Implements type conversion to float.
-* `__complex__(self)` Implements type conversion to complex.
-* `__oct__(self)` Implements type conversion to octal.
-* `__hex__(self)` Implements type conversion to hexadecimal.
-* `__index__(self)` Implements type conversion to an int when the object is used in a slice expression. If you define a custom numeric type that might be used in slicing, you should define `__index__`.
-* `__trunc__(self)` Called when `math.trunc(self)` is called. `__trunc__` should return the value of self truncated to an integral type (usually a long).
-* `__coerce__(self, other)` Method to implement mixed mode arithmetic. `__coerce__` should return None if type conversion is impossible. Otherwise, it should return a pair (2-tuple) of `self` and `other`, manipulated to have the same type.
+* `__int__(self)` - Implements type conversion to int.
+* `__long__(self)` - Implements type conversion to long.
+* `__float__(self)` - Implements type conversion to float.
+* `__complex__(self)` - Implements type conversion to complex.
+* `__oct__(self)` - Implements type conversion to octal.
+* `__hex__(self)` - Implements type conversion to hexadecimal.
+* `__index__(self)` - Implements type conversion to an int when the object is used in a slice expression. If you define a custom numeric type that might be used in slicing, you should define `__index__`.
+* `__trunc__(self)` - Called when `math.trunc(self)` is called. `__trunc__` should return the value of self truncated to an integral type (usually a long).
+* `__coerce__(self, other)` - Method to implement mixed mode arithmetic. `__coerce__` should return None if type conversion is impossible. Otherwise, it should return a pair (2-tuple) of `self` and `other`, manipulated to have the same type.
 
 ## <a></a>Representing your Classes
 
 It's often useful to have a string representation of a class. In Python, there's a few methods that you can implement in your class definition to customize how built in functions that return representations of your class behave.
 
-* `__str__(self)` Defines behavior for when `str()` is called on an instance of your class.
-* `__repr__(self)` Defines behavior for when `repr()` is called on an instance of your class. The major difference between `str()` and `repr()` is intended audience. `repr()` is intended to produce output that is mostly machine-readable (in many cases, it could be valid Python code even), whereas `str()` is intended to be human-readable.
-* `__unicode__(self)` Defines behavior for when `unicode()` is called on an instance of your class. `unicode()` is like `str()`, but it returns a unicode string. Be wary: if a client calls `str()` on an instance of your class and you've only defined `__unicode__()`, it won't work. You should always try to define `__str__()` as well in case someone doesn't have the luxury of using unicode.
-* `__format__(self, formatstr)` Defines behavior for when an instance of your class is used in new-style string formatting. For instance, `"Hello, {0:abc}!".format(a)` would lead to the call `a.__format__("abc")`. This can be useful for defining your own numerical or string types that you might like to give special formatting options.
-* `__hash__(self)` Defines behavior for when `hash()` is called on an instance of your class. It has to return an integer, and its result is used for quick key comparison in dictionaries. Note that this usually entails implementing `__eq__` as well. Live by the following rule: `a == b` implies `hash(a) == hash(b)`.
-* `__nonzero__(self)` Defines behavior for when `bool()` is called on an instance of your class. Should return `True` or `False`, depending on whether you would want to consider the instance to be `True` or `False.`
-* `__dir__(self)` Defines behavior for when `dir()` is called on an instance of your class. This method should return a list of attributes for the user. Typically, implementing `__dir__` is unnecessary, but it can be vitally important for interactive use of your classes if you redefine `__getattr__` or `__getattribute__` (which you will see in the next section) or are otherwise dynamically generating attributes.
-* `__sizeof__(self)` Defines behavior for when `sys.getsizeof()` is called on an instance of your class. This should return the size of your object, in bytes. This is generally more useful for Python classes implemented in C extensions, but it helps to be aware of it.
+* `__str__(self)` - Defines behavior for when `str()` is called on an instance of your class.
+* `__repr__(self)` - Defines behavior for when `repr()` is called on an instance of your class. The major difference between `str()` and `repr()` is intended audience. `repr()` is intended to produce output that is mostly machine-readable (in many cases, it could be valid Python code even), whereas `str()` is intended to be human-readable.
+* `__unicode__(self)` - Defines behavior for when `unicode()` is called on an instance of your class. `unicode()` is like `str()`, but it returns a unicode string. Be wary: if a client calls `str()` on an instance of your class and you've only defined `__unicode__()`, it won't work. You should always try to define `__str__()` as well in case someone doesn't have the luxury of using unicode.
+* `__format__(self, formatstr)` - Defines behavior for when an instance of your class is used in new-style string formatting. For instance, `"Hello, {0:abc}!".format(a)` would lead to the call `a.__format__("abc")`. This can be useful for defining your own numerical or string types that you might like to give special formatting options.
+* `__hash__(self)` - Defines behavior for when `hash()` is called on an instance of your class. It has to return an integer, and its result is used for quick key comparison in dictionaries. Note that this usually entails implementing `__eq__` as well. Live by the following rule: `a == b` implies `hash(a) == hash(b)`.
+* `__nonzero__(self)` - Defines behavior for when `bool()` is called on an instance of your class. Should return `True` or `False`, depending on whether you would want to consider the instance to be `True` or `False.`
+* `__dir__(self)` - Defines behavior for when `dir()` is called on an instance of your class. This method should return a list of attributes for the user. Typically, implementing `__dir__` is unnecessary, but it can be vitally important for interactive use of your classes if you redefine `__getattr__` or `__getattribute__` (which you will see in the next section) or are otherwise dynamically generating attributes.
+* `__sizeof__(self)` - Defines behavior for when `sys.getsizeof()` is called on an instance of your class. This should return the size of your object, in bytes. This is generally more useful for Python classes implemented in C extensions, but it helps to be aware of it.
 
 We're pretty much done with the boring (and example-free) part of the magic methods guide. Now that we've covered some of the more basic magic methods, it's time to move to more advanced material.
 
@@ -251,10 +251,10 @@ We're pretty much done with the boring (and example-free) part of the magic meth
 
 Many people coming to Python from other languages complain that it lacks true encapsulation for classes (e.g. no way to define private attributes and then have public getter and setters). This couldn't be farther than the truth: it just happens that Python accomplishes a great deal of encapsulation through "magic", instead of explicit modifiers for methods or fields. Take a look:
 
-* `__getattr__(self, name)` You can define behavior for when a user attempts to access an attribute that doesn't exist (either at all or yet). This can be useful for catching and redirecting common misspellings, giving warnings about using deprecated attributes (you can still choose to compute and return that attribute, if you wish), or deftly handing an `AttributeError`. It only gets called when a nonexistent attribute is accessed, however, so it isn't a true encapsulation solution.
-* `__setattr__(self, name, value)` Unlike `__getattr__`, `__setattr__` is an encapsulation solution. It allows you to define behavior for assignment to an attribute regardless of whether or not that attribute exists, meaning you can define custom rules for any changes in the values of attributes. However, you have to be careful with how you use `__setattr__`, as the example at the end of the list will show.
-* `__delattr__(self, name)` This is the exact same as `__setattr__`, but for deleting attributes instead of setting them. The same precautions need to be taken as with `__setattr__` as well in order to prevent infinite recursion (calling `del self.name` in the implementation of `__delattr__` would cause infinite recursion).
-* `__getattribute__(self, name)` After all this, `__getattribute__` fits in pretty well with its companions `__setattr__` and `__delattr__`. However, I don't recommend you use it. `__getattribute__` can only be used with new-style classes (all classes are new-style in the newest versions of Python, and in older versions you can make a class new-style by subclassing object. It allows you to define rules for whenever an attribute's value is accessed. It suffers from some similar infinite recursion problems as its partners-in-crime (this time you call the base class's `__getattribute__` method to prevent this). It also mainly obviates the need for `__getattr__`, which only gets called when `__getattribute__` is implemented if it is called explicitly or an `AttributeError` is raised. This method can be used (after all, it's your choice), but I don't recommend it because it has a small use case (it's far more rare that we need special behavior to retrieve a value than to assign to it) and because it can be really difficult to implement bug-free.
+* `__getattr__(self, name)` - You can define behavior for when a user attempts to access an attribute that doesn't exist (either at all or yet). This can be useful for catching and redirecting common misspellings, giving warnings about using deprecated attributes (you can still choose to compute and return that attribute, if you wish), or deftly handing an ` -AttributeError`. It only gets called when a nonexistent attribute is accessed, however, so it isn't a true encapsulation solution.
+* `__setattr__(self, name, value)` - Unlike `__getattr__`, `__setattr__` is an encapsulation solution. It allows you to define behavior for assignment to an attribute regardless of whether or not that attribute exists, meaning you can define custom rules for any changes in the values of attributes. However, you have to be careful with how you use `__setattr__`, as the example at the end of the list will show.
+* `__delattr__(self, name)` - This is the exact same as `__setattr__`, but for deleting attributes instead of setting them. The same precautions need to be taken as with `__setattr__` as well in order to prevent infinite recursion (calling `del self.name` in the implementation of `__delattr__` would cause infinite recursion).
+* `__getattribute__(self, name)` - After all this, `__getattribute__` fits in pretty well with its companions `__setattr__` and `__delattr__`. However, I don't recommend you use it. `__getattribute__` can only be used with new-style classes (all classes are new-style in the newest versions of Python, and in older versions you can make a class new-style by subclassing object. It allows you to define rules for whenever an attribute's value is accessed. It suffers from some similar infinite recursion problems as its partners-in-crime (this time you call the base class's `__getattribute__` method to prevent this). It also mainly obviates the need for `__getattr__`, which only gets called when `__getattribute__` is implemented if it is called explicitly or an `AttributeError` is raised. This method can be used (after all, it's your choice), but I don't recommend it because it has a small use case (it's far more rare that we need special behavior to retrieve a value than to assign to it) and because it can be really difficult to implement bug-free.
 
 You can easily cause a problem in your definitions of any of the methods controlling attribute access. Consider this example:
 
@@ -313,14 +313,14 @@ Why are we talking about protocols now? Because implementing custom container ty
 
 Without any more wait, here are the magic methods that containers use:
 
-* `__len__(self)` Returns the length of the container. Part of the protocol for both immutable and mutable containers.
-* `__getitem__(self, key)` Defines behavior for when an item is accessed, using the notation `self[key]`. This is also part of both the mutable and immutable container protocols. It should also raise appropriate exceptions: `TypeError` if the type of the key is wrong and `KeyError` if there is no corresponding value for the key.
-* `__setitem__(self, key, value)` Defines behavior for when an item is assigned to, using the notation `self[nkey] = value`. This is part of the mutable container protocol. Again, you should raise `KeyError` and `TypeError` where appropriate.
-* `__delitem__(self, key)` Defines behavior for when an item is deleted (e.g. `del self[key]`). This is only part of the mutable container protocol. You must raise the appropriate exceptions when an invalid key is used.
-* `__iter__(self)` Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the `iter()` built in function and when a container is looped over using the form `for x in container:`. Iterators are their own objects, and they also must define an `__iter__` method that returns `self`.
-* `__reversed__(self)` Called to implement behavior for the `reversed()` built in function. Should return a reversed version of the sequence. Implement this only if the sequence class is ordered, like list or tuple.
-* `__contains__(self, item)` `__contains__` defines behavior for membership tests using in and not in. Why isn't this part of a sequence protocol, you ask? Because when `__contains__` isn't defined, Python just iterates over the sequence and returns `True` if it comes across the item it's looking for.
-* `__missing__(self, key)` `__missing__` is used in subclasses of `dict`. It defines behavior for whenever a key is accessed that does not exist in a dictionary (so, for instance, if I had a dictionary `d` and said `d["george"]` when "george" is not a key in the dict, `d.__missing__("george")` would be called).
+* `__len__(self)` - Returns the length of the container. Part of the protocol for both immutable and mutable containers.
+* `__getitem__(self, key)` - Defines behavior for when an item is accessed, using the notation `self[key]`. This is also part of both the mutable and immutable container protocols. It should also raise appropriate exceptions: `TypeError` if the type of the key is wrong and `KeyError` if there is no corresponding value for the key.
+* `__setitem__(self, key, value)` - Defines behavior for when an item is assigned to, using the notation `self[nkey] = value`. This is part of the mutable container protocol. Again, you should raise `KeyError` and `TypeError` where appropriate.
+* `__delitem__(self, key)` - Defines behavior for when an item is deleted (e.g. `del self[key]`). This is only part of the mutable container protocol. You must raise the appropriate exceptions when an invalid key is used.
+* `__iter__(self)` - Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the `iter()` built in function and when a container is looped over using the form `for x in container:`. Iterators are their own objects, and they also must define an `__iter__` method that returns `self`.
+* `__reversed__(self)` - Called to implement behavior for the `reversed()` built in function. Should return a reversed version of the sequence. Implement this only if the sequence class is ordered, like list or tuple.
+* `__contains__(self, item)` - `__contains__` defines behavior for membership tests using in and not in. Why isn't this part of a sequence protocol, you ask? Because when `__contains__` isn't defined, Python just iterates over the sequence and returns `True` if it comes across the item it's looking for.
+* `__missing__(self, key)` - `__missing__` is used in subclasses of `dict`. It defines behavior for whenever a key is accessed that does not exist in a dictionary (so, for instance, if I had a dictionary `d` and said `d["george"]` when "george" is not a key in the dict, `d.__missing__("george")` would be called).
 
 ### <a></a>An example
 
@@ -572,12 +572,12 @@ Now, for a word of caution: pickling is not perfect. Pickle files are easily cor
 
 Pickling isn't just for built-in types. It's for any class that follows the pickle protocol. The pickle protocol has four optional methods for Python objects to customize how they act (it's a bit different for C extensions, but that's not in our scope):
 
-* `__getinitargs__(self)` If you'd like for `__init__` to be called when your class is unpickled, you can define `__getinitargs__`, which should return a tuple of the arguments that you'd like to be passed to `__init__`. Note that this method will only work for old-style classes.
-* `__getnewargs__(self)` For new-style classes, you can influence what arguments get passed to `__new__` upon unpickling. This method should also return a tuple of arguments that will then be passed to `__new__`.
-* `__getstate__(self)` Instead of the object's `__dict__` attribute being stored, you can return a custom state to be stored when the object is pickled. That state will be used by `__setstate__` when the object is unpickled.
-* `__setstate__(self, state)` When the object is unpickled, if `__setstate__` is defined the object's state will be passed to it instead of directly applied to the object's `__dict__`. This goes hand in hand with `__getstate__`: when both are defined, you can represent the object's pickled state however you want with whatever you want.
-* `__reduce__(self)` When defining extension types (i.e., types implemented using Python's C API), you have to tell Python how to pickle them if you want them to pickle them. `__reduce__()` is called when an object defining it is pickled. It can either return a string representing a global name that Python will look up and pickle, or a tuple. The tuple contains between 2 and 5 elements: a callable object that is called to recreate the object, a tuple of arguments for that callable object, state to be passed to `__setstate__` (optional), an iterator yielding list items to be pickled (optional), and an iterator yielding dictionary items to be pickled (optional).
-* `__reduce_ex__(self)` `__reduce_ex__` exists for compatibility. If it is defined, `__reduce_ex__` will be called over `__reduce__` on pickling. `__reduce__` can be defined as well for older versions of the pickling API that did not support `__reduce_ex__`.
+* `__getinitargs__(self)` - If you'd like for `__init__` to be called when your class is unpickled, you can define `__getinitargs__`, which should return a tuple of the arguments that you'd like to be passed to `__init__`. Note that this method will only work for old-style classes.
+* `__getnewargs__(self)` - For new-style classes, you can influence what arguments get passed to `__new__` upon unpickling. This method should also return a tuple of arguments that will then be passed to `__new__`.
+* `__getstate__(self)` - Instead of the object's `__dict__` attribute being stored, you can return a custom state to be stored when the object is pickled. That state will be used by `__setstate__` when the object is unpickled.
+* `__setstate__(self, state)` - When the object is unpickled, if `__setstate__` is defined the object's state will be passed to it instead of directly applied to the object's `__dict__`. This goes hand in hand with `__getstate__`: when both are defined, you can represent the object's pickled state however you want with whatever you want.
+* `__reduce__(self)` - When defining extension types (i.e., types implemented using Python's C API), you have to tell Python how to pickle them if you want them to pickle them. `__reduce__()` is called when an object defining it is pickled. It can either return a string representing a global name that Python will look up and pickle, or a tuple. The tuple contains between 2 and 5 elements: a callable object that is called to recreate the object, a tuple of arguments for that callable object, state to be passed to `__setstate__` (optional), an iterator yielding list items to be pickled (optional), and an iterator yielding dictionary items to be pickled (optional).
+* `__reduce_ex__(self)` - `__reduce_ex__` exists for compatibility. If it is defined, `__reduce_ex__` will be called over `__reduce__` on pickling. `__reduce__` can be defined as well for older versions of the pickling API that did not support `__reduce_ex__`.
 
 ### <a></a>An Example
 
@@ -626,30 +626,30 @@ The goal of this guide is to bring something to anyone that reads it, regardless
 
 Some of the magic methods in Python directly map to built-in functions; in this case, how to invoke them is fairly obvious. However, in other cases, the invocation is far less obvious. This appendix is devoted to exposing non-obvious syntax that leads to magic methods getting called.
 
-| Magic Method                    | When it gets invoked (example)    | Explanation                             |
-| --------------------------------| ----------------------------------| ----------------------------------------|
-| `__new__(cls [,...])`             | instance = MyClass(arg1, arg2)    | __new__ is called on instance creation  |
-| `__init__(self [,...])`           | instance = MyClass(arg1, arg2)    | __init__ is called on instance creation |
-| `__cmp__(self, other)`            | self == other, self > other, etc. | Called for any comparison               |
-| `__pos__(self)`                   | +self                             | Unary plus sign                         |
-| `__neg__(self)`                   | -self                             | Unary minus sign                        |
-| `__invert__(self)`                | ~self                             | Bitwise inversion                       |
-| `__index__(self)`                 | x[self]                           | Conversion when object is used as index |
-| `__nonzero__(self)`               | bool(self)                        | Boolean value of the object             |
-| `__getattr__(self, name)`         | self.name # name doesn't exist    | Accessing nonexistent attribute         |
-| `__setattr__(self, name, val)`    | self.name = val                   | Assigning to an attribute               |
-| `__delattr__(self, name)`         | del self.name                     | Deleting an attribute                   |
-| `__getattribute__(self, name)`    | self.name                         | Accessing any attribute                 |
-| `__getitem__(self, key)`          | self[key]                         | Accessing an item using an index        |
-| `__setitem__(self, key, val)`     | self[key] = val                   | Assigning to an item using an index     |
-| `__delitem__(self, key)`          | del self[key]                     | Deleting an item using an index         |
-| `__iter__(self)`                  | for x in self                     | Iteration                               |
-| `__contains__(self, value)`       | value in self, value not in self  | Membership tests using in               |
-| `__call__(self [,...])`           | self(args)                        | "Calling" an instance                   |
-| `__enter__(self)`                 | with self as x:                   | with statement context managers         |
-| `__exit__(self, exc, val, trace)` | with self as x:                   | with statement context managers         |
-| `__getstate__(self)`              | pickle.dump(pkl_file, self)       | Pickling                                |
-| __setstate__(self)              | data = pickle.load(pkl_file)      | Pickling                                |
+| Magic Method                      | When it gets invoked (example)      | Explanation                               |
+| --------------------------------  | ----------------------------------  | ----------------------------------------  |
+| `__new__(cls [,...])`             | `instance = MyClass(arg1, arg2)`    | `__new__` is called on instance creation  |
+| `__init__(self [,...])`           | `instance = MyClass(arg1, arg2)`    | `__init__` is called on instance creation |
+| `__cmp__(self, other)`            | `self == other, self > other, etc.` | Called for any comparison                 |
+| `__pos__(self)`                   | `+self`                             | Unary plus sign                           |
+| `__neg__(self)`                   | `-self`                             | Unary minus sign                          |
+| `__invert__(self)`                | `~self`                             | Bitwise inversion                         |
+| `__index__(self)`                 | `x[self]`                           | Conversion when object is used as index   |
+| `__nonzero__(self)`               | `bool(self)`                        | Boolean value of the object               |
+| `__getattr__(self, name)`         | `self.name # name doesn't exist`    | Accessing nonexistent attribute           |
+| `__setattr__(self, name, val)`    | `self.name = val`                   | Assigning to an attribute                 |
+| `__delattr__(self, name)`         | `del self.name`                     | Deleting an attribute                     |
+| `__getattribute__(self, name)`    | `self.name`                         | Accessing any attribute                   |
+| `__getitem__(self, key)`          | `self[key]`                         | Accessing an item using an index          |
+| `__setitem__(self, key, val)`     | `self[key] = val`                   | Assigning to an item using an index       |
+| `__delitem__(self, key)`          | `del self[key]`                     | Deleting an item using an index           |
+| `__iter__(self)`                  | `for x in self`                     | Iteration                                 |
+| `__contains__(self, value)`       | `value in self, value not in self`  | Membership tests using `in`               |
+| `__call__(self [,...])`           | `self(args)`                        | "Calling" an instance                     |
+| `__enter__(self)`                 | `with self as x:`                   | `with` statement context managers         |
+| `__exit__(self, exc, val, trace)` | `with self as x:`                   | `with` statement context managers         |
+| `__getstate__(self)`              | `pickle.dump(pkl_file, self)`       | Pickling                                  |
+| `__setstate__(self)`              | `data = pickle.load(pkl_file)`      | Pickling                                  |
 
 Hopefully, this table should have cleared up any questions you might have had about what syntax invokes which magic method.
 
