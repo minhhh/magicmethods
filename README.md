@@ -167,11 +167,15 @@ Now, we cover the typical binary operators (and a function or two): `+`, `-`, `*
 
 You know how I said I would get to reflected arithmetic in a bit? Some of you might think it's some big, scary, foreign concept. It's actually quite simple. Here's an example:
 
+```python
     some_object + other
+```
+<br/>
+
 That was "normal" addition. The reflected equivalent is the same thing, except with the operands switched around:
 
 ```python
-other + some_object
+    other + some_object
 ```
 <br/>
 
