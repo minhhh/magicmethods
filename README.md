@@ -666,3 +666,7 @@ Here, we document a few major places where Python 3 differs from 2.x in terms of
 * `__coerce__` is gone due to redundancy with other magic methods and confusing behavior
 * `__cmp__` is gone due to redundancy with other magic methods
 * `__nonzero__` has been renamed to `__bool__`
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/minhhh/magicmethods/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
